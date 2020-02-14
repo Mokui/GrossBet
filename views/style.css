@@ -1,99 +1,104 @@
 body {
     font-family: Arial;
-  }
-  canvas {
+}
+.login {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+canvas {
     border: 1px solid #000;
-  }
-  kbd {
+}
+kbd {
     border: 1px solid #888;
     border-radius: 3px;
     font-family: Arial;
     font-size: 11pt;
     padding: 2px 6px;
-  }
-  .container {
+}
+.container {
     margin: auto;
     width: 800px;
-  }
-  #game {
+}
+#game {
     margin-bottom: 15px;
-  }
-  #health-bars, #controls {
+}
+#health-bars, #controls {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-  .health-label {
+}
+.health-label {
     line-height: 1.5em;
-  }
-  .health {
+}
+.health {
     background: #ccc;
     height: 20px;
     position: relative;
     width: 320px;
-  }
-  .fill {
+}
+.fill {
     background: #0a0;
     display: block;
     height: 20px;
     position: absolute;
     transition: width 0.5s;
-  }
-  #controls {
+}
+#controls {
     display: flex;
     flex-direction: row;
     margin-bottom: 5px;
-  }
-  #p1-health {
+}
+#p1-health {
     left: 0;
     width: 0%;
-  }
-  #p2-health {
+}
+#p2-health {
     right: 0;
     width: 0%;
-  }
-  #p1-ctrls, #p2-ctrls {
+}
+#p1-ctrls, #p2-ctrls {
     display: flex;
     flex-direction: row;
     flex: 0 0 50%;
-  }
-  #p2-ctrls {
+}
+#p2-ctrls {
     justify-content: flex-end;
-  }
-  #keys {
+}
+#keys {
     display: flex;
     flex-direction: row;
     flex: 0 0 50%;
     justify-content: space-between;
-  }
-  #p1-keys kbd:nth-of-type(1) {
+}
+#p1-keys kbd:nth-of-type(1) {
     margin-left: 35px;
-  }
-  #p1-keys kbd:nth-of-type(2) {
+}
+#p1-keys kbd:nth-of-type(2) {
     margin-left: 60px
-  }
-  #p1-keys kbd:nth-of-type(3) {
+}
+#p1-keys kbd:nth-of-type(3) {
     margin-left: 65px
-  }
-  #p1-keys kbd:nth-of-type(4) {
+}
+#p1-keys kbd:nth-of-type(4) {
     margin-left: 45px
-  }
-  #p2-keys {
+}
+#p2-keys {
     justify-content: flex-end;
-  }
-  #p2-keys kbd:nth-of-type(1) {
+}
+#p2-keys kbd:nth-of-type(1) {
     margin-right: 60px;
-  }
-  #p2-keys kbd:nth-of-type(2) {
+}
+#p2-keys kbd:nth-of-type(2) {
     margin-right: 60px
-  }
-  #p2-keys kbd:nth-of-type(3) {
+}
+#p2-keys kbd:nth-of-type(3) {
     margin-right: 65px
-  }
-  #p2-keys kbd:nth-of-type(4) {
+}
+#p2-keys kbd:nth-of-type(4) {
     margin-right: 35px
-  }
-  .move, .a-btn, .b-btn {
+}
+.move, .a-btn, .b-btn {
     border-radius: 50%;
     cursor: pointer;
     display: block;
@@ -107,17 +112,17 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-  .a-btn, .b-btn {
+}
+.a-btn, .b-btn {
     color: #fff;
     line-height: 2em;
     text-align: center;
-  }
-  .arrow-left, .arrow-right {
+}
+.arrow-left, .arrow-right {
     display: block;
     margin: 15px auto;
-  }
-  .arrow-left {
+}
+.arrow-left {
     width: 0; 
     height: 0; 
     border-bottom: 25px solid transparent;
@@ -125,8 +130,8 @@ body {
     border-right: 25px solid #2f2f2f;
     font-size: 0;
     line-height: 0;
-  }
-  .arrow-right {
+}
+.arrow-right {
     width: 0; 
     height: 0; 
     border-bottom: 25px solid transparent;
@@ -134,28 +139,28 @@ body {
     border-left: 25px solid #2f2f2f;
     font-size: 0;
     line-height: 0;
-  }
-  .move {
+}
+.move {
     display:none; 
     /* background: #888; */
-  }
-  .move:active {
+}
+.move:active {
     display:none; 
     /* background: #666; */
-  }
-  .a-btn {
+}
+.a-btn {
     display:none; 
     /* background: #04c; */
-  }
-  .a-btn:active {
+}
+.a-btn:active {
     display:none; 
     /* background: #028; */
-  }
-  .b-btn {
+}
+.b-btn {
     display:none; 
     /* background: #080; */
-  }
-  .b-btn:active {
+}
+.b-btn:active {
     display:none; 
     /* background: #040; */
-  }
+}

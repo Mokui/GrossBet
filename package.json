@@ -1,7 +1,6 @@
 {
   "name": "grossbetty",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +10,19 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-redis": "^4.0.4",
     "express": "^4.17.1",
-    "express-session": "^1.17.0"
-  }
+    "express-session": "^1.17.0",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mokui/GrossBet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mokui/GrossBet/issues"
+  },
+  "homepage": "https://github.com/Mokui/GrossBet#readme",
+  "description": ""
 }

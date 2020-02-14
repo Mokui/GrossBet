@@ -1,16 +1,24 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const redis = require('redis');
+const redisStore = require('connect-redis')(session);
+const client  = redis.createClient();
 const router = express.Router();
 const app = express();
 
-app.use(session({secret: 'secret',saveUninitialized: true,resave: true}));
+app.use(session({
+    secret: 'secret',
+    // create new redis store.
+    store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
+    saveUninitialized: false,
+    resave: false
+}));
+
 app.use(bodyParser.json());      
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/views'));
-;
 
-var sess;
 router.get('/',(req,res) => {
     sess = req.session;
     if(sess.username) {
@@ -28,8 +36,7 @@ router.post('/login',(req,res) => {
 router.get('/play',(req,res) => {
     sess = req.session;
     if(sess.username) {
-        res.write(`<h1>Hello ${sess.username} </h1><br>`);
-        res.end('<a href='+'/logout'+'>Logout</a>');
+        res.sendFile('play.html', { root: __dirname + '/views' });
     }
     else {
         res.write('<h1>Please login first.</h1>');
