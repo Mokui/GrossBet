@@ -136,20 +136,26 @@ body {
     line-height: 0;
   }
   .move {
-    background: #888;
+    display:none; 
+    /* background: #888; */
   }
   .move:active {
-    background: #666;
+    display:none; 
+    /* background: #666; */
   }
   .a-btn {
-    background: #04c;
+    display:none; 
+    /* background: #04c; */
   }
   .a-btn:active {
-    background: #028;
+    display:none; 
+    /* background: #028; */
   }
   .b-btn {
-    background: #080;
+    display:none; 
+    /* background: #080; */
   }
   .b-btn:active {
-    background: #040;
+    display:none; 
+    /* background: #040; */
   }
