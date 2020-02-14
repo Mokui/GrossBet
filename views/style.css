@@ -1,0 +1,9 @@
+#canvas-container {
+    width: 100%;
+    text-align:center;
+}
+ 
+#canvas {
+    display: inline;
+    border:3px solid #000;
+}
