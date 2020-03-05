@@ -26,9 +26,16 @@ router.get('/',(req,res) => {
     res.sendFile('index.html');
 });
 
-router.post('/login',(req,res) => {
+router.post("/login",(req,res) => {
     client.set('username', req.body.username);
     sess = client.get('username');
+    console.log(sess);
+    res.end('done');
+});
+
+router.post("/stream",(req,res) => {
+    client.set('action', req.body.username);
+    sess = client.get('action');
     console.log(sess);
     res.end('done');
 });
