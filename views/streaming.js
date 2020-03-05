@@ -30,6 +30,7 @@ $(function () {
     tabAction.push(data);
     var newHTML = [];
     tabAction.forEach(element => {
+      console.log(element)
       newHTML.push('<li>' + element + '</li>');
     });
     $("#action").html(newHTML);
