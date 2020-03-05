@@ -118,9 +118,9 @@ io.on('connection', (socket) => {
       });
     });
 
-    socket.on('action', () => {
-      socket.broadcast.emit('action', {
-        username: socket.username
+    socket.on('action', (data) => {
+      socket.broadcast.emit('action-receiver', {
+        username: data
       });
     });
   
