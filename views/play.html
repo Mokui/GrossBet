@@ -165,21 +165,7 @@
                                     frameLP1 = 11;
                                 }
                             } else if (keys[68] && !player1.jumping || right_P1 == true && !player1.jumping) {
-<<<<<<< HEAD
-                                
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/stream',
-                                    data: { 
-                                        'key': 68,
-                                    },
-                                    success: function(msg){
-                                        //console.log(msg);
-                                    }
-                                });
-=======
                                 socket.emit("action",68);
->>>>>>> e0f5d49bc2014ffbb13eecadfa2f960192948f74
                                 // move right
                                 ctx.drawImage(player1Sprites[frameRP1],player1.x,player1.y);
                                 ++frameRP1;

@@ -26,7 +26,7 @@ $(function () {
 
   var socket = io();
 
-  socket.on('action', (data) => {
+  socket.on('action-receiver', (data) => {
     tabAction.push(data);
     var newHTML = [];
     tabAction.forEach(element => {
