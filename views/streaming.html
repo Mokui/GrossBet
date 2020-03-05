@@ -145,7 +145,6 @@
                   anim1 = function(){
                     if (player1.dead == false) {
                       if (keys[81] && !player1.jumping || left_P1 == true && !player1.jumping) {
-
                         // move left
                         ctx.drawImage(player1Sprites[frameLP1],player1.x,player1.y);
                         ++frameLP1;
@@ -153,7 +152,6 @@
                           frameLP1 = 11;
                         }
                       } else if (keys[68] && !player1.jumping || right_P1 == true && !player1.jumping) {
-                        socket.emit("action",68);
                         // move right
                         ctx.drawImage(player1Sprites[frameRP1],player1.x,player1.y);
                         ++frameRP1;
@@ -168,7 +166,6 @@
                           ctx.drawImage(player1Sprites[23],player1.x,player1.y);
                         }
                       } else if (keys[16] || b_P1 == true) {
-                        socket.emit("action",16);
                         // attack
                         if (player1.lastDir == "l") {
                           ctx.drawImage(player1Sprites[frameLPunchP1],(player1.x - player1.width / 2),player1.y);
@@ -224,7 +221,6 @@
                   anim2 = function(){
                     if (player2.dead == false) {
                       if (keys[37] && !player2.jumping || left_P2 == true && !player2.jumping) {
-                        socket.emit("action",37);
                         // move left
                         ctx.drawImage(player2Sprites[frameLP2],player2.x,player2.y);
                         ++frameLP2;
@@ -232,7 +228,6 @@
                           frameLP2 = 11;
                         }
                       } else if (keys[39] && !player2.jumping || right_P2 == true && !player2.jumping) {
-                        socket.emit("action",39);
                         // move right
                         ctx.drawImage(player2Sprites[frameRP2],player2.x,player2.y);
                         ++frameRP2;
@@ -247,7 +242,6 @@
                           ctx.drawImage(player2Sprites[23],player2.x,player2.y);
                         }
                       } else if (keys[40] || b_P2 == true) { //attack with bottom arrow
-                        socket.emit("action",40);
                         // attack
                         if (player2.lastDir == "l") {
                           ctx.drawImage(player2Sprites[frameLPunchP2],(player2.x - player2.width / 2),player2.y);
@@ -299,7 +293,6 @@
                 // jump
                 // player 1
                 if (keys[90] || a_P1 == true) {
-                  socket.emit("action",90);
                   if (!player1.jumping){
                     player1.jumping = true;
                     player1.velY = -player2.speed * 2;
@@ -312,7 +305,6 @@
                 }
                 // player 2
                 if (keys[38] || a_P2 == true) {
-                  socket.emit("action",38);
                   if (!player2.jumping){
                     player2.jumping = true;
                     player2.velY = -player2.speed * 2;
@@ -325,17 +317,14 @@
                 }
                 // move left
                 // player 1
-                if (keys[81] || left_P1 == true) {
-                  socket.emit("action",81);
-                  
+                if (keys[81] || left_P1 == true) {                  
                   if (player1.velX > -player1.speed) {
                     player1.velX--;
                     player1.lastDir = "l";
                   }
                 }
                 // player 2
-                if (keys[37] || left_P2 == true) {
-                  socket.emit("action",37);               
+                if (keys[37] || left_P2 == true) {          
                   if (player2.velX > -player2.speed) {
                     player2.velX--;
                     player2.lastDir = "l";
@@ -344,7 +333,6 @@
                 // move right
                 // player 1
                 if (keys[68] || right_P1 == true) {
-                  socket.emit("action",68);
                   if (player1.velX < player1.speed) {                   
                     player1.velX++;
                     player1.lastDir = "r";                
@@ -352,7 +340,6 @@
                 }
                 // player 2
                 if (keys[39] || right_P2 == true) {
-                  socket.emit("action",39);
                   if (player2.velX < player2.speed) {                   
                     player2.velX++;
                     player2.lastDir = "r";                
