@@ -117,6 +117,12 @@ io.on('connection', (socket) => {
         username: socket.username
       });
     });
+
+    socket.on('action', () => {
+      socket.broadcast.emit('action', {
+        username: socket.username
+      });
+    });
   
     // when the client emits 'stop typing', we broadcast it to others
     socket.on('stop typing', () => {
