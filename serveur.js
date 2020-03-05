@@ -20,22 +20,21 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/views'));
 
 router.get('/',(req,res) => {
-    sess = req.session;
-    if(sess.username) {
+    if(client.get('username')) {
         return res.redirect('/play');
     }
     res.sendFile('index.html');
 });
 
 router.post('/login',(req,res) => {
-    sess = req.session;
-    sess.username = req.body.username;
+    client.set('username', req.body.username);
+    sess = client.get('username');
+    console.log(sess);
     res.end('done');
 });
 
 router.get('/play',(req,res) => {
-    sess = req.session;
-    if(sess.username) {
+    if(client.get('username')) {
         res.sendFile('play.html', { root: __dirname + '/views' });
     }
     else {
@@ -45,7 +44,7 @@ router.get('/play',(req,res) => {
 });
 
 router.get('/logout',(req,res) => {
-    req.session.destroy((err) => {
+    client.flushdb((err, succeeded) => {
         if(err) {
             return console.log(err);
         }

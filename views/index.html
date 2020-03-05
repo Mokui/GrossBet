@@ -5,14 +5,14 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
-        var username,pass;
+        var username;
         $("#submit").click(function(){
             username=$("#username").val();
-            pass=$("#password").val();
             /*
             * Perform some validation here.
             */
-            $.post("/login",{username:username,pass:pass},function(data){
+            $.post("/login",{username:username},function(data){
+                console.log(data);
                 if(data==='done') {
                     window.location.href="/play";
                 }
@@ -24,8 +24,7 @@
     <body>
         <div class="login">
             <input type="text" size="40" placeholder="Entrez votre pseudo" id="username"><br />
-            <input type="password" size="40" placeholder="Mot de passe" id="password"><br />
-            <input type="button" value="EEEeeet Z'est partiiiiii!" id="submit">
+            <button type="submit" id="submit">EEEeeet Z'est partiiiiii!</button>
         </div>
     </body>
 </html>
