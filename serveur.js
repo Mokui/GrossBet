@@ -34,9 +34,9 @@ router.post("/login",(req,res) => {
 });
 
 router.post("/stream",(req,res) => {
-    client.set('action', req.body.username);
+    client.set('action', req.body.key);
     sess = client.get('action');
-    console.log(sess);
+    console.log(req.body.key);
     res.end('done');
 });
 
