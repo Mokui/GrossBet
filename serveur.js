@@ -41,10 +41,10 @@ router.post("/login",(req,res) => {
 });
 
 router.post("/stream",(req,res) => {
-    client.set('action', req.body.username);
-    sess = client.get('action');
-    console.log(sess);
-    res.end('done');
+  client.set('action', req.body.key);
+  sess = client.get('action');
+  console.log(req.body.key);
+  res.end('done');
 });
 
 router.get('/streaming', (req,res) => {
