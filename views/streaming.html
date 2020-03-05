@@ -526,7 +526,9 @@
               });
 
               socket.on('action-receiver', (data) => {
-                !keys[data] ? true : false;
+                keys[data] = !keys[data] ? true : false;
+                console.log(data);
+                console.log(keys[data]);
               });
               
               // tablet/phone control buttons
