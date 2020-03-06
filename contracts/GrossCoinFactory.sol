@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.6.1;
 import "./GrossCoin.sol";
 
 contract GrossCoinFactory {
@@ -9,7 +9,7 @@ contract GrossCoinFactory {
 
     constructor () public {
         //upon creation of the factory, deploy a GrossCoin (parameters are meaningless) and store the bytecode provably.
-        address verifiedToken = createGrossCoin(10000, "Verify Token", 3, "VTX");
+        address verifiedToken = createGrossCoin();
         GrossCoinByteCode = codeAt(verifiedToken);
     }
 
@@ -31,22 +31,22 @@ contract GrossCoinFactory {
         return true;
     }
 
-    function createGrossCoin(uint256 _initialAmount, string _name, uint8 _decimals, string _symbol)
+    function createGrossCoin()
         public
     returns (address) {
 
-        GrossCoin newToken = (new GrossCoin(_initialAmount, _name, _decimals, _symbol));
+        GrossCoin newToken = (new GrossCoin());
         created[msg.sender].push(address(newToken));
         isGrossCoin[address(newToken)] = true;
         //the factory will own the created tokens. You must transfer them.
-        newToken.transfer(msg.sender, _initialAmount);
+        newToken.transfer(msg.sender, 1);
         return address(newToken);
     }
 
     //for now, keeping this internal. Ideally there should also be a live version of this that
     // any contract can use, lib-style.
     //retrieves the bytecode at a specific address.
-    function codeAt(address _addr) internal view returns (bytes outputCode) {
+    function codeAt(address _addr) internal view returns (bytes memory outputCode) {
         assembly { // solhint-disable-line no-inline-assembly
             // retrieve the size of the code, this needs assembly
             let size := extcodesize(_addr)

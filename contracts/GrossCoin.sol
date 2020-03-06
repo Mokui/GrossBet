@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.6.1;
 import "./GrossCoinInterface.sol";
 
 contract GrossCoin is GrossCoinInterface {
@@ -19,7 +19,7 @@ contract GrossCoin is GrossCoinInterface {
         symbol = "G";
     }
 
-    function transfer(address _to, uint256 _value) public returns (bool success) {
+    function transfer(address _to, uint256 _value) override public returns (bool success) {
         require(balances[msg.sender] >= _value, "Not authorized.");
         balances[msg.sender] -= _value;
         balances[_to] += _value;
@@ -27,7 +27,7 @@ contract GrossCoin is GrossCoinInterface {
         return true;
     }
 
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) override public returns (bool success) {
         uint256 allowance = allowed[_from][msg.sender];
         require(balances[_from] >= _value && allowance >= _value, "Not authorized.");
         balances[_to] += _value;
@@ -39,17 +39,17 @@ contract GrossCoin is GrossCoinInterface {
         return true;
     }
 
-    function balanceOf(address _owner) public view returns (uint256 balance) {
+    function balanceOf(address _owner) override public view returns (uint256 balance) {
         return balances[_owner];
     }
 
-    function approve(address _spender, uint256 _value) public returns (bool success) {
+    function approve(address _spender, uint256 _value) override public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value); //solhint-disable-line indent, no-unused-vars
         return true;
     }
 
-    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
+    function allowance(address _owner, address _spender) override public view returns (uint256 remaining) {
         return allowed[_owner][_spender];
     }
 }
