@@ -41,9 +41,9 @@
   
   #pages-left {
     height: 100%;
+    width: 50%;
     margin: 0;
     padding: 0;
-    width: 50%;
     border-right: 1px solid black;
   }
 
@@ -62,8 +62,9 @@
   
   /* Login Page */
   
-  .login.page {
+  .login {
     background-color: #000;
+    width: 50%;
   }
   
   .login.page .form {
@@ -73,7 +74,7 @@
   
     text-align: center;
     top: 50%;
-    width: 100%;
+    width: 50%;
   }
   
   .login.page .form .usernameInput {
