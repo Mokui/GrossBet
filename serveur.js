@@ -43,6 +43,7 @@ router.post("/login",(req,res) => {
 router.post("/stream",(req,res) => {
   client.set('action', req.body.key);
   sess = client.get('action');
+  setTimeout(() => {}, 200);
   console.log(req.body.key);
   res.end('done');
 });
