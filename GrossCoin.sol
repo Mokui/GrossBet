@@ -1,22 +1,22 @@
-pragma solidity >=0.4.16 <0.7.0;
-import "GrossCoinInterface.sol";
+pragma solidity ^0.5.16;
+import "./GrossCoinInterface.sol";
 
 contract GrossCoin is GrossCoinInterface {
 
     uint256 constant private MAX_UINT256 = 2**256 - 1;
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
-
+    
     string public name;
     uint8 public decimals;
     string public symbol;
 
-    constructor () {
-        balances[msg.sender] = 20;               // Give the creator all initial tokens (100000 for example)
-        totalSupply = 1500000;                        // Update total supply (100000 for example)
-        name = "Gross Coin";                                   // Set the name for display purposes
-        decimals = 0;                            // Amount of decimals for display purposes
-        symbol = "G";                               // Set the symbol for display purposes
+    constructor () public{
+        balances[msg.sender] = 20;
+        totalSupply = 1500000;
+        name = "Gross Coin";
+        decimals = 0;
+        symbol = "G";
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {

@@ -1,5 +1,5 @@
-pragma solidity >=0.4.16 <0.7.0;
-import "GrossCoin.sol";
+pragma solidity ^0.5.16;
+import "./GrossCoin.sol";
 
 contract GrossCoinFactory {
 
