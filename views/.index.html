@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <title>Gross Bet</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var username;
+            $("#submit").click(function () {
+                username = $("#username").val();
+                /*
+                * Perform some validation here.
+                */
+                $.post("/login", { username: username }, function (data) {
+                    console.log(data);
+                    if (data === 'done') {
+                        window.location.href = "/play";
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <img src="/static/Capture1.PNG" class="brand-logo" alt="">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/play">play</a></li>
+                <li><a href="/streaming">bet</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <input type="text" size="40" placeholder="Entrez votre pseudo" id="username"><br />
+        <button type="submit" id="submit">EEEeeet Z'est partiiiiii!</button>
+        <div class="login">
+        </div>
+    </div>
+</body>
+
+</html>
