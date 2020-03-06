@@ -7,6 +7,10 @@ contract GrossCoin is GrossCoinInterface {
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
 
+    string public name;
+    uint8 public decimals;
+    string public symbol;
+
     constructor () {
         balances[msg.sender] = 20;               // Give the creator all initial tokens (100000 for example)
         totalSupply = 1500000;                        // Update total supply (100000 for example)
