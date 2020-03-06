@@ -22,18 +22,8 @@ $(function () {
   var typing = false;
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
-  var tabAction = [];
 
   var socket = io();
-
-  socket.on('action-receiver', (data) => {
-    tabAction.push(data);
-    var newHTML = [];
-    tabAction.forEach(element => {
-      newHTML.push('<li>' + element + '</li>');
-    });
-    $("#action").html(newHTML);
-  });
 
   const addParticipantsMessage = (data) => {
     var message = '';
