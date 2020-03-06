@@ -26,15 +26,6 @@ $(function () {
 
   var socket = io();
 
-  socket.on('action-receiver', (data) => {
-    tabAction.push(data);
-    var newHTML = [];
-    tabAction.forEach(element => {
-      newHTML.push('<li>' + element + '</li>');
-    });
-    $("#action").html(newHTML);
-  });
-
   const addParticipantsMessage = (data) => {
     var message = '';
     if (data.numUsers === 1) {

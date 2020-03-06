@@ -513,7 +513,7 @@
               });
 
               socket.on('action-receiver', (data) => {
-                !keys[data] ? true : false;
+                keys[data] = !keys[data] ? true : false;
               });
               
               // tablet/phone control buttons
