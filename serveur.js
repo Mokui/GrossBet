@@ -115,14 +115,14 @@ io.on('connection', (socket) => {
       io.emit('action-receiver', data);
     });
 
-    socket.on('player1XY', (data) => {
+    socket.on('player1X', (data) => {
       console.log(data);
-      io.emit('movePlayer1',data);
+      socket.broadcast.emit('movePlayer1',data);
     });
 
-    socket.on('player2XY', (data) => {
+    socket.on('player2X', (data) => {
       console.log(data);
-      io.emit('movePlayer2',data);
+      socket.broadcast.emit('movePlayer2',data);
     });
   
     // when the client emits 'stop typing', we broadcast it to others
