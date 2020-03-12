@@ -115,11 +115,6 @@
               canvas.width = width;
               canvas.height = height;
               
-              // load sounds
-              var sound = new Array();
-              sound[0] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/hit.ogg');
-              sound[1] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/miss.ogg');
-              
               var frameRP1 = 1,
               frameRP2 = 1,
               frameLP1 = 11,
@@ -177,8 +172,6 @@
                             player1.y >= player2.y &&
                             player1.y <= player2.y + player2.height) {
                               hurt(player2, player1, healthP2);
-                            } else {
-                              sound[1].play();
                             }
                           }
                           if (frameLPunchP1 == 46) {
@@ -194,8 +187,6 @@
                             player1.y >= player2.y &&
                             player1.y <= player2.y + player2.height) {
                               hurt(player2, player1, healthP2);
-                            } else {
-                              sound[1].play();
                             }
                           }
                           if (frameRPunchP1 == 35) {
@@ -253,8 +244,6 @@
                             player2.y >= player1.y &&
                             player2.y <= player1.y + player1.height) {
                               hurt(player1, player2, healthP1);
-                            } else {
-                              sound[1].play();
                             }
                           }
                           if (frameLPunchP2 == 46) {
@@ -270,8 +259,6 @@
                             player2.y >= player1.y &&
                             player2.y <= player1.y + player1.height) {
                               hurt(player1, player2, healthP1);
-                            } else {
-                              sound[1].play();
                             }
                           }
                           if (frameRPunchP2 == 35) {
@@ -471,7 +458,6 @@
               
               // when opponent is hit
               function hurt(victim, attacker, victimHealth) {
-                sound[0].play();
                 victim.health -= attacker.attack;
                 victimHealth.style.width = victim.health + "%";
                 
@@ -494,6 +480,7 @@
               // increment winner’s KO count when he defeated opponent
               function incKO(winner, winnerCounter) {
                 ++winner.kills;
+                console.log(winner.kills)
                 document.getElementById(winnerCounter).innerHTML = winner.kills;
               }
               
@@ -513,7 +500,16 @@
               });
 
               socket.on('action-receiver', (data) => {
+                console.log(data);
                 keys[data] = !keys[data] ? true : false;
+              });
+
+              socket.on('movePlayer1', (data) => {
+                console.log(data);
+              });
+
+              socket.on('movePlayer2', (data) => {
+                console.log(data);
               });
               
               // tablet/phone control buttons
