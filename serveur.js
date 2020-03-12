@@ -40,14 +40,6 @@ router.post("/login",(req,res) => {
     res.end('done');
 });
 
-router.post("/stream",(req,res) => {
-  client.set('action', req.body.key);
-  sess = client.get('action');
-  setTimeout(() => {}, 200);
-  console.log(req.body.key);
-  res.end('done');
-});
-
 router.get('/streaming', (req,res) => {
     res.sendFile('streaming.html', { root: __dirname + '/views' });
 });
@@ -124,10 +116,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('player1XY', (data) => {
+      console.log(data);
       io.emit('movePlayer1',data);
     });
 
     socket.on('player2XY', (data) => {
+      console.log(data);
       io.emit('movePlayer2',data);
     });
   
