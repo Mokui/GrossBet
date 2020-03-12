@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.6.1;
 import "./GrossCoin.sol";
 
 contract GrossCoinFactory {
@@ -47,7 +47,8 @@ contract GrossCoinFactory {
     // any contract can use, lib-style.
     //retrieves the bytecode at a specific address.
     function codeAt(address _addr) internal view returns (bytes outputCode) {
-        assembly { // solhint-disable-line no-inline-assembly
+        assembly {
+            // solhint-disable-line no-inline-assembly
             // retrieve the size of the code, this needs assembly
             let size := extcodesize(_addr)
             // allocate output byte array - this could also be done without assembly

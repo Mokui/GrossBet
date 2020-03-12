@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button class="enableEthereumButton">Enable Ethereum</button>
+    <h2>Account: <span class="showAccount"></span></h2>
+
+</body>
+
+<script>
+    // event 
+    const ethereumButton = document.querySelector(".enableEthereumButton");
+    const showAccount = document.querySelector(".showAccount");
+    let accounts;
+    let account;
+
+    // metamask function
+
+    function isInstalled() {
+        if (typeof web3 !== 'undefined') {
+            console.log('MetaMask is installed')
+            ethereumButton.addEventListener("click", () => {
+                getAccount();
+            });
+        } else {
+            console.log('MetaMask is not installed')
+        }
+    }
+
+    async function getAccount() {
+        accounts = await ethereum.enable();
+        account = accounts[0];
+        showAccount.innerHTML = account;
+    }
+
+    function isLocked() {
+        web3.eth.getAccounts(function(err, accounts) {
+            if (err != null) {
+                console.log(err)
+            } else if (accounts.length === 0) {
+                console.log('MetaMask is locked')
+            } else {
+                console.log('MetaMask is unlocked')
+            }
+        });
+    }
+
+    function checkBalance() {
+        tokenInst.balanceOf(
+            web3.eth.accounts[0],
+            function(error, result) {
+                if (!error && result) {
+                    var balance = result.c[0];
+                    if (balance < balanceNeeded * (100000000)) {
+                        console.log('MetaMask shows insufficient balance')
+                        return false;
+                    }
+                    console.log('MetaMask shows sufficient balance')
+                        // Include here your transaction function here
+                } else {
+                    console.error(error);
+                }
+                return false;
+            }
+        );
+    }
+
+    isInstalled();
+    isLocked();
+    checkBalance();
+</script>
+
+</html>

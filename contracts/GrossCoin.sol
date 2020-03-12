@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.6.1;
 import "./GrossCoinInterface.sol";
 
 contract GrossCoin is GrossCoinInterface {
@@ -6,7 +6,7 @@ contract GrossCoin is GrossCoinInterface {
     uint256 constant private MAX_UINT256 = 2**256 - 1;
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
-    
+
     string public name;
     uint8 public decimals;
     string public symbol;
