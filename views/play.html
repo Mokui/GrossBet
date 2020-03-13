@@ -77,7 +77,6 @@
         <a href='/logout'>Logout</a>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
     <script>
         var socket = io();
         (function() {
@@ -131,9 +130,9 @@
         canvas.height = height;
 
         // load sounds
-        var sound = new Array();
-        sound[0] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/hit.ogg');
-        sound[1] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/miss.ogg');
+        //var sound = new Array();
+        //sound[0] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/hit.ogg');
+        //sound[1] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/miss.ogg');
 
         var frameRP1 = 1,
             frameRP2 = 1,
@@ -155,14 +154,16 @@
         // load player 1 sprites
         for (var i = 0; i <= maxFrames; ++i) {
             player1Sprites[i] = new Image();
-            player1Sprites[i].src = "https://jonkantner.com/experiments/stick_fight/sprites/player1/player" + i + ".svg";
+            player1Sprites[i].src = "../assets/player1_" + i + ".svg";
             if (i == maxFrames) {
                 anim1 = function() {
                     if (player1.dead == false) {
                         if (keys[81] && !player1.jumping || left_P1 == true && !player1.jumping) {
                             setTimeout(() => {
                                 socket.emit("action", 81);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // move left
                             ctx.drawImage(player1Sprites[frameLP1], player1.x, player1.y);
                             ++frameLP1;
@@ -172,7 +173,9 @@
                         } else if (keys[68] && !player1.jumping || right_P1 == true && !player1.jumping) {
                             setTimeout(() => {
                                 socket.emit("action", 68);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // move right
                             ctx.drawImage(player1Sprites[frameRP1], player1.x, player1.y);
                             ++frameRP1;
@@ -189,7 +192,9 @@
                         } else if (keys[16] || b_P1 == true) {
                             setTimeout(() => {
                                 socket.emit("action", 16);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // attack
                             if (player1.lastDir == "l") {
                                 ctx.drawImage(player1Sprites[frameLPunchP1], (player1.x - player1.width / 2), player1.y);
@@ -201,9 +206,10 @@
                                         player1.y >= player2.y &&
                                         player1.y <= player2.y + player2.height) {
                                         hurt(player2, player1, healthP2);
-                                    } else {
-                                        sound[1].play();
                                     }
+                                    /*else {
+                                                                               sound[1].play();
+                                                                           }*/
                                 }
                                 if (frameLPunchP1 == 46) {
                                     frameLPunchP1 = 36;
@@ -218,9 +224,10 @@
                                         player1.y >= player2.y &&
                                         player1.y <= player2.y + player2.height) {
                                         hurt(player2, player1, healthP2);
-                                    } else {
-                                        sound[1].play();
                                     }
+                                    /*else {
+                                                                               sound[1].play();
+                                                                           }*/
                                 }
                                 if (frameRPunchP1 == 35) {
                                     frameRPunchP1 = 25;
@@ -240,14 +247,16 @@
         // load player 2 sprites
         for (var j = 0; j <= maxFrames; ++j) {
             player2Sprites[j] = new Image();
-            player2Sprites[j].src = "https://jonkantner.com/experiments/stick_fight/sprites/player2/player" + j + ".svg";
+            player2Sprites[j].src = "../assets/player2_" + j + ".svg";
             if (j == maxFrames) {
                 anim2 = function() {
                     if (player2.dead == false) {
                         if (keys[37] && !player2.jumping || left_P2 == true && !player2.jumping) {
                             setTimeout(() => {
                                 socket.emit("action", 37);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // move left
                             ctx.drawImage(player2Sprites[frameLP2], player2.x, player2.y);
                             ++frameLP2;
@@ -257,7 +266,9 @@
                         } else if (keys[39] && !player2.jumping || right_P2 == true && !player2.jumping) {
                             setTimeout(() => {
                                 socket.emit("action", 39);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // move right
                             ctx.drawImage(player2Sprites[frameRP2], player2.x, player2.y);
                             ++frameRP2;
@@ -274,7 +285,9 @@
                         } else if (keys[40] || b_P2 == true) { //attack with bottom arrow
                             setTimeout(() => {
                                 socket.emit("action", 40);
-                            }, 25);
+                                socket.emit("player1X", player1.x);
+                                socket.emit("player2X", player2.x);
+                            }, 100);
                             // attack
                             if (player2.lastDir == "l") {
                                 ctx.drawImage(player2Sprites[frameLPunchP2], (player2.x - player2.width / 2), player2.y);
@@ -286,9 +299,10 @@
                                         player2.y >= player1.y &&
                                         player2.y <= player1.y + player1.height) {
                                         hurt(player1, player2, healthP1);
-                                    } else {
-                                        sound[1].play();
                                     }
+                                    /*else {
+                                                                               sound[1].play();
+                                                                           }*/
                                 }
                                 if (frameLPunchP2 == 46) {
                                     frameLPunchP2 = 36;
@@ -303,9 +317,10 @@
                                         player2.y >= player1.y &&
                                         player2.y <= player1.y + player1.height) {
                                         hurt(player1, player2, healthP1);
-                                    } else {
-                                        sound[1].play();
                                     }
+                                    /*else {
+                                                                               sound[1].play();
+                                                                           }*/
                                 }
                                 if (frameRPunchP2 == 35) {
                                     frameRPunchP2 = 25;
@@ -327,8 +342,10 @@
             // player 1
             if (keys[90] || a_P1 == true) {
                 setTimeout(() => {
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
                     socket.emit("action", 90);
-                }, 25);
+                }, 100);
                 if (!player1.jumping) {
                     player1.jumping = true;
                     player1.velY = -player2.speed * 2;
@@ -343,7 +360,9 @@
             if (keys[38] || a_P2 == true) {
                 setTimeout(() => {
                     socket.emit("action", 38);
-                }, 25);
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
+                }, 100);
                 if (!player2.jumping) {
                     player2.jumping = true;
                     player2.velY = -player2.speed * 2;
@@ -359,7 +378,9 @@
             if (keys[81] || left_P1 == true) {
                 setTimeout(() => {
                     socket.emit("action", 81);
-                }, 25);
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
+                }, 100);
 
                 if (player1.velX > -player1.speed) {
                     player1.velX--;
@@ -370,7 +391,9 @@
             if (keys[37] || left_P2 == true) {
                 setTimeout(() => {
                     socket.emit("action", 37);
-                }, 25);
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
+                }, 100);
                 if (player2.velX > -player2.speed) {
                     player2.velX--;
                     player2.lastDir = "l";
@@ -381,7 +404,9 @@
             if (keys[68] || right_P1 == true) {
                 setTimeout(() => {
                     socket.emit("action", 68);
-                }, 25);
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
+                }, 100);
                 if (player1.velX < player1.speed) {
                     player1.velX++;
                     player1.lastDir = "r";
@@ -391,7 +416,9 @@
             if (keys[39] || right_P2 == true) {
                 setTimeout(() => {
                     socket.emit("action", 39);
-                }, 25);
+                    socket.emit("player1X", player1.x);
+                    socket.emit("player2X", player2.x);
+                }, 100);
                 if (player2.velX < player2.speed) {
                     player2.velX++;
                     player2.lastDir = "r";
@@ -524,7 +551,7 @@
 
         // when opponent is hit
         function hurt(victim, attacker, victimHealth) {
-            sound[0].play();
+            //sound[0].play();
             victim.health -= attacker.attack;
             victimHealth.style.width = victim.health + "%";
 

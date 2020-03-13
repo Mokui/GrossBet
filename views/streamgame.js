@@ -1,13 +1,13 @@
 var socket = io();
-(function () {
+(function() {
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
-    width = window.innerWidth * 0.6,
-    height = window.innerHeight * 0.6,
+    width = 800,
+    height = 400,
     player1 = {
         x: (width / 4),
         y: height - 100,
@@ -49,11 +49,6 @@ var canvas = document.getElementById("canvas"),
 canvas.width = width;
 canvas.height = height;
 
-// load sounds
-var sound = new Array();
-sound[0] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/hit.ogg');
-sound[1] = new Audio('https://jonkantner.com/experiments/stick_fight/sounds/miss.ogg');
-
 var frameRP1 = 1,
     frameRP2 = 1,
     frameLP1 = 11,
@@ -76,7 +71,7 @@ for (var i = 0; i <= maxFrames; ++i) {
     player1Sprites[i] = new Image();
     player1Sprites[i].src = "https://jonkantner.com/experiments/stick_fight/sprites/player1/player" + i + ".svg";
     if (i == maxFrames) {
-        anim1 = function () {
+        anim1 = function() {
             if (player1.dead == false) {
                 if (keys[81] && !player1.jumping || left_P1 == true && !player1.jumping) {
                     // move left
@@ -111,8 +106,6 @@ for (var i = 0; i <= maxFrames; ++i) {
                                 player1.y >= player2.y &&
                                 player1.y <= player2.y + player2.height) {
                                 hurt(player2, player1, healthP2);
-                            } else {
-                                sound[1].play();
                             }
                         }
                         if (frameLPunchP1 == 46) {
@@ -128,8 +121,6 @@ for (var i = 0; i <= maxFrames; ++i) {
                                 player1.y >= player2.y &&
                                 player1.y <= player2.y + player2.height) {
                                 hurt(player2, player1, healthP2);
-                            } else {
-                                sound[1].play();
                             }
                         }
                         if (frameRPunchP1 == 35) {
@@ -152,7 +143,7 @@ for (var j = 0; j <= maxFrames; ++j) {
     player2Sprites[j] = new Image();
     player2Sprites[j].src = "https://jonkantner.com/experiments/stick_fight/sprites/player2/player" + j + ".svg";
     if (j == maxFrames) {
-        anim2 = function () {
+        anim2 = function() {
             if (player2.dead == false) {
                 if (keys[37] && !player2.jumping || left_P2 == true && !player2.jumping) {
                     // move left
@@ -187,8 +178,6 @@ for (var j = 0; j <= maxFrames; ++j) {
                                 player2.y >= player1.y &&
                                 player2.y <= player1.y + player1.height) {
                                 hurt(player1, player2, healthP1);
-                            } else {
-                                sound[1].play();
                             }
                         }
                         if (frameLPunchP2 == 46) {
@@ -204,8 +193,6 @@ for (var j = 0; j <= maxFrames; ++j) {
                                 player2.y >= player1.y &&
                                 player2.y <= player1.y + player1.height) {
                                 hurt(player1, player2, healthP1);
-                            } else {
-                                sound[1].play();
                             }
                         }
                         if (frameRPunchP2 == 35) {
@@ -381,7 +368,8 @@ function colCheck(shapeA, shapeB) {
     // if the x and y vector are less than the half width or half height, they we must be inside the object, causing a collision
     if (Math.abs(vX) < hWidths && Math.abs(vY) < hHeights) {
         // figures out on which side we are colliding (top, bottom, left, or right)
-        var oX = hWidths - Math.abs(vX), oY = hHeights - Math.abs(vY);
+        var oX = hWidths - Math.abs(vX),
+            oY = hHeights - Math.abs(vY);
         if (oX >= oY) {
             if (vY > 0) {
                 colDir = "t";
@@ -405,7 +393,6 @@ function colCheck(shapeA, shapeB) {
 
 // when opponent is hit
 function hurt(victim, attacker, victimHealth) {
-    sound[0].play();
     victim.health -= attacker.attack;
     victimHealth.style.width = victim.health + "%";
 
@@ -421,7 +408,7 @@ function hurt(victim, attacker, victimHealth) {
     if (victim.health <= 0) {
         victim.dead = true;
         deathTime = 1;
-        setTimeout(function () { respawn(victim, victimHealth) }, 400);
+        setTimeout(function() { respawn(victim, victimHealth) }, 400);
     }
 }
 
@@ -442,12 +429,21 @@ function respawn(newLife, healthToFill) {
     healthToFill.style.background = "#0a0";
 }
 
-window.addEventListener("load", function () {
+window.addEventListener("load", function() {
     update();
 });
 
 socket.on('action-receiver', (data) => {
+    //console.log(data);
     keys[data] = !keys[data] ? true : false;
+});
+
+socket.on('movePlayer1', (data) => {
+    console.log(data);
+});
+
+socket.on('movePlayer2', (data) => {
+    console.log(data);
 });
 
 // tablet/phone control buttons
@@ -473,46 +469,46 @@ var left_P1 = false,
     b_P2 = false;
 
 // player 1 buttons
-leftBtn_P1.addEventListener("mousedown", function () { left_P1 = true; });
-leftBtn_P1.addEventListener("mouseup", function () { left_P1 = false; });
-leftBtn_P1.addEventListener("touchstart", function () { left_P1 = true; });
-leftBtn_P1.addEventListener("touchend", function () { left_P1 = false; });
+leftBtn_P1.addEventListener("mousedown", function() { left_P1 = true; });
+leftBtn_P1.addEventListener("mouseup", function() { left_P1 = false; });
+leftBtn_P1.addEventListener("touchstart", function() { left_P1 = true; });
+leftBtn_P1.addEventListener("touchend", function() { left_P1 = false; });
 
-rightBtn_P1.addEventListener("mousedown", function () { right_P1 = true; });
-rightBtn_P1.addEventListener("mouseup", function () { right_P1 = false; });
-rightBtn_P1.addEventListener("touchstart", function () { right_P1 = true; });
-rightBtn_P1.addEventListener("touchend", function () { right_P1 = false; });
+rightBtn_P1.addEventListener("mousedown", function() { right_P1 = true; });
+rightBtn_P1.addEventListener("mouseup", function() { right_P1 = false; });
+rightBtn_P1.addEventListener("touchstart", function() { right_P1 = true; });
+rightBtn_P1.addEventListener("touchend", function() { right_P1 = false; });
 
-aBtn_P1.addEventListener("mousedown", function () { a_P1 = true; });
-aBtn_P1.addEventListener("mouseup", function () { a_P1 = false; });
-aBtn_P1.addEventListener("touchstart", function () { a_P1 = true; });
-aBtn_P1.addEventListener("touchend", function () { a_P1 = false; });
+aBtn_P1.addEventListener("mousedown", function() { a_P1 = true; });
+aBtn_P1.addEventListener("mouseup", function() { a_P1 = false; });
+aBtn_P1.addEventListener("touchstart", function() { a_P1 = true; });
+aBtn_P1.addEventListener("touchend", function() { a_P1 = false; });
 
-bBtn_P1.addEventListener("mousedown", function () { b_P1 = true; });
-bBtn_P1.addEventListener("mouseup", function () { b_P1 = false; });
-bBtn_P1.addEventListener("touchstart", function () { b_P1 = true; });
-bBtn_P1.addEventListener("touchend", function () { b_P1 = false; });
+bBtn_P1.addEventListener("mousedown", function() { b_P1 = true; });
+bBtn_P1.addEventListener("mouseup", function() { b_P1 = false; });
+bBtn_P1.addEventListener("touchstart", function() { b_P1 = true; });
+bBtn_P1.addEventListener("touchend", function() { b_P1 = false; });
 
 // player 2 buttons
-leftBtn_P2.addEventListener("mousedown", function () { left_P2 = true; });
-leftBtn_P2.addEventListener("mouseup", function () { left_P2 = false; });
-leftBtn_P2.addEventListener("touchstart", function () { left_P2 = true; });
-leftBtn_P2.addEventListener("touchend", function () { left_P2 = false; });
+leftBtn_P2.addEventListener("mousedown", function() { left_P2 = true; });
+leftBtn_P2.addEventListener("mouseup", function() { left_P2 = false; });
+leftBtn_P2.addEventListener("touchstart", function() { left_P2 = true; });
+leftBtn_P2.addEventListener("touchend", function() { left_P2 = false; });
 
-rightBtn_P2.addEventListener("mousedown", function () { right_P2 = true; });
-rightBtn_P2.addEventListener("mouseup", function () { right_P2 = false; });
-rightBtn_P2.addEventListener("touchstart", function () { right_P2 = true; });
-rightBtn_P2.addEventListener("touchend", function () { right_P2 = false; });
+rightBtn_P2.addEventListener("mousedown", function() { right_P2 = true; });
+rightBtn_P2.addEventListener("mouseup", function() { right_P2 = false; });
+rightBtn_P2.addEventListener("touchstart", function() { right_P2 = true; });
+rightBtn_P2.addEventListener("touchend", function() { right_P2 = false; });
 
-aBtn_P2.addEventListener("mousedown", function () { a_P2 = true; });
-aBtn_P2.addEventListener("mouseup", function () { a_P2 = false; });
-aBtn_P2.addEventListener("touchstart", function () { a_P2 = true; });
-aBtn_P2.addEventListener("touchend", function () { a_P2 = false; });
+aBtn_P2.addEventListener("mousedown", function() { a_P2 = true; });
+aBtn_P2.addEventListener("mouseup", function() { a_P2 = false; });
+aBtn_P2.addEventListener("touchstart", function() { a_P2 = true; });
+aBtn_P2.addEventListener("touchend", function() { a_P2 = false; });
 
-bBtn_P2.addEventListener("mousedown", function () { b_P2 = true; });
-bBtn_P2.addEventListener("mouseup", function () { b_P2 = false; });
-bBtn_P2.addEventListener("touchstart", function () { b_P2 = true; });
-bBtn_P2.addEventListener("touchend", function () { b_P2 = false; });
+bBtn_P2.addEventListener("mousedown", function() { b_P2 = true; });
+bBtn_P2.addEventListener("mouseup", function() { b_P2 = false; });
+bBtn_P2.addEventListener("touchstart", function() { b_P2 = true; });
+bBtn_P2.addEventListener("touchend", function() { b_P2 = false; });
 
 var platforms = [];
 var platThickness = 10;
@@ -564,8 +560,3 @@ platforms.push({
     width: 180,
     height: platThickness
 });
-
-/* Platformer game tutorial by Loktar (twitter.com/loktar00)
-somethinghitme.com/2013/01/09/creating-a-canvas-platformer-tutorial-part-one/
-somethinghitme.com/2013/04/16/creating-a-canvas-platformer-tutorial-part-tw/
-*/

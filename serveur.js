@@ -40,14 +40,6 @@ router.post("/login", (req, res) => {
     res.end('done');
 });
 
-router.post("/stream", (req, res) => {
-    client.set('action', req.body.key);
-    sess = client.get('action');
-    setTimeout(() => {}, 200);
-    console.log(req.body.key);
-    res.end('done');
-});
-
 router.get('/streaming', (req, res) => {
     res.sendFile('streaming.html', { root: __dirname + '/views' });
 });
@@ -123,7 +115,17 @@ io.on('connection', (socket) => {
     });
 
     socket.on('action', (data) => {
-        socket.broadcast.emit('action-receiver', data);
+        io.emit('action-receiver', data);
+    });
+
+    socket.on('player1X', (data) => {
+        console.log(data);
+        socket.broadcast.emit('movePlayer1', data);
+    });
+
+    socket.on('player2X', (data) => {
+        console.log(data);
+        socket.broadcast.emit('movePlayer2', data);
     });
 
     // when the client emits 'stop typing', we broadcast it to others
