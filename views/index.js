@@ -27,7 +27,7 @@ function isLocked() {
 
 isLocked();
 
-
+var walletGrossCoin = 0;
 // check balance
 function checkBalance() {
     tokenInst.balanceOf(
@@ -35,7 +35,8 @@ function checkBalance() {
         function (error, result) {
             if (!error && result) {
                 var balance = result.c[0];
-                if (balance < balanceNeeded * (100000000)) {
+                walletGrossCoin = balance;
+                if (balance < 1 * (100000000)) {
                     console.log('MetaMask shows insufficient balance')
                     return false;
                 }

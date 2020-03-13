@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -12,15 +12,18 @@
 
     <button class="enableEthereumButton">Enable Ethereum</button>
     <h2>Account: <span class="showAccount"></span></h2>
-
+    <h2>Balance: <span class="balanceAcc"></span></h2>
 </body>
 
 <script>
     // event 
     const ethereumButton = document.querySelector(".enableEthereumButton");
     const showAccount = document.querySelector(".showAccount");
+    const balanceAcc= document.querySelector(".balanceAcc");
     let accounts;
     let account;
+    let tokenInst;
+    const tokenabi = web3.eth.contract([{"constant": "true","inputs": [{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name": "","type": "uint256"}],"payable":"false","stateMutability":"view","type":"function"}]);
 
     // metamask function
 
@@ -29,6 +32,8 @@
             console.log('MetaMask is installed')
             ethereumButton.addEventListener("click", () => {
                 getAccount();
+                tokenInst = tokenabi.at(account);
+                checkBalance();
             });
         } else {
             console.log('MetaMask is not installed')
@@ -59,7 +64,8 @@
             function(error, result) {
                 if (!error && result) {
                     var balance = result.c[0];
-                    if (balance < balanceNeeded * (100000000)) {
+                    balanceAcc.innerHTML = balance;
+                    if (balance < 1 * (100000000)) {
                         console.log('MetaMask shows insufficient balance')
                         return false;
                     }
