@@ -10,42 +10,27 @@
 
 <body>
 
-    <button class="enableEthereumButton">Enable Ethereum</button>
     <h2>Account: <span class="showAccount"></span></h2>
     <h2>Balance: <span class="balanceAcc"></span></h2>
 </body>
-
+<script src="abi.txt"></script>
 <script>
     // event 
-    const ethereumButton = document.querySelector(".enableEthereumButton");
     const showAccount = document.querySelector(".showAccount");
     const balanceAcc= document.querySelector(".balanceAcc");
     let accounts;
-    let account;
+    let account = "0xb00304beb5aaabb964ee8417b3cde714326efda2";
     let tokenInst;
-    const tokenabi = web3.eth.contract([{"constant": "true","inputs": [{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name": "","type": "uint256"}],"payable":"false","stateMutability":"view","type":"function"}]);
+    let contract;
 
     // metamask function
-
-    function isInstalled() {
-        if (typeof web3 !== 'undefined') {
-            console.log('MetaMask is installed')
-            ethereumButton.addEventListener("click", () => {
-                getAccount();
-                tokenInst = tokenabi.at(account);
-                checkBalance();
-            });
-        } else {
-            console.log('MetaMask is not installed')
-        }
-    }
-
+    
     async function getAccount() {
         accounts = await ethereum.enable();
-        account = accounts[0];
         showAccount.innerHTML = account;
-    }
 
+    }
+    
     function isLocked() {
         web3.eth.getAccounts(function(err, accounts) {
             if (err != null) {
@@ -57,12 +42,31 @@
             }
         });
     }
-
+    
     function checkBalance() {
+        console.log(tokenInst);
+        web3.eth.getBalance(account, 'latest', function(error, result) {
+                if (!error && result) {
+                    console.log(result);
+                    var balance = result.c[0];
+                    balanceAcc.innerHTML = balance;
+                    if (balance < 1 * (100000000)) {
+                        console.log('MetaMask shows insufficient balance')
+                        return false;
+                    }
+                    console.log('MetaMask shows sufficient balance')
+                        // Include here your transaction function here
+                } else {
+                    console.error(error);
+                }
+                return false;
+            });
+            /*
         tokenInst.balanceOf(
-            web3.eth.accounts[0],
+            account.toString(),
             function(error, result) {
                 if (!error && result) {
+                    console.log(result);
                     var balance = result.c[0];
                     balanceAcc.innerHTML = balance;
                     if (balance < 1 * (100000000)) {
@@ -76,11 +80,17 @@
                 }
                 return false;
             }
-        );
+        );*/
     }
 
-    isInstalled();
+    function getContractAndToken() {
+        contract = web3.eth.contract(tokenabi, account);
+        tokenInst = contract.at(account);
+    }
+
     isLocked();
+    getAccount();
+    getContractAndToken();
     checkBalance();
 </script>
 
