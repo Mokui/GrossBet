@@ -9,12 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.33",
     "body-parser": "^1.19.0",
     "connect-redis": "^4.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "redis": "^3.0.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "solc": "^0.6.1",
+    "truffle-hdwallet-provider": "^1.0.1",
+    "web3": "^1.2.6"
   },
   "devDependencies": {},
   "repository": {

@@ -45,6 +45,7 @@
     
     function checkBalance() {
         console.log(tokenInst);
+        //GrossCoin.deployed().then(function(instance){return instance.balanceOf.call(account);}).then(function(value){return value.toNumber()});
         web3.eth.getBalance(account, 'latest', function(error, result) {
                 if (!error && result) {
                     console.log(result);
@@ -61,26 +62,6 @@
                 }
                 return false;
             });
-            /*
-        tokenInst.balanceOf(
-            account.toString(),
-            function(error, result) {
-                if (!error && result) {
-                    console.log(result);
-                    var balance = result.c[0];
-                    balanceAcc.innerHTML = balance;
-                    if (balance < 1 * (100000000)) {
-                        console.log('MetaMask shows insufficient balance')
-                        return false;
-                    }
-                    console.log('MetaMask shows sufficient balance')
-                        // Include here your transaction function here
-                } else {
-                    console.error(error);
-                }
-                return false;
-            }
-        );*/
     }
 
     function getContractAndToken() {
